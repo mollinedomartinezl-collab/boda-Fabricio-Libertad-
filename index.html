@@ -79,7 +79,7 @@
         <svg viewBox="0 0 100 100" class="wax-seal__svg">
           <circle cx="50" cy="50" r="46" class="wax-seal__base"/>
           <circle cx="50" cy="50" r="46" class="wax-seal__ring"/>
-          <use href="#tulipStamp" x="30" y="24" width="40" height="52"/>
+          <use href="#tulipStamp" style="color:#eef3f6"/>
         </svg>
       </button>
 
@@ -495,12 +495,14 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <defs>
 
-  <!-- tulipán individual, trazo fino -->
+  <!-- tulipán individual, trazo fino, silueta de tres pétalos -->
   <g id="tulipStroke">
-    <path d="M50 15 C38 15 32 28 32 38 C32 48 40 55 50 60 C60 55 68 48 68 38 C68 28 62 15 50 15Z" fill="none" stroke="currentColor" stroke-width="2"/>
-    <path d="M50 60 L50 95" fill="none" stroke="currentColor" stroke-width="2"/>
-    <path d="M50 75 C38 75 30 68 26 58" fill="none" stroke="currentColor" stroke-width="1.6"/>
-    <path d="M50 82 C62 82 70 74 74 64" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M50 18 Q41 33 50 50 Q59 33 50 18 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M50 50 Q31 46 29 28 Q45 31 50 50 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M50 50 Q69 46 71 28 Q55 31 50 50 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M50 50 L50 95" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M50 74 C40 73 33 68 28 59" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M50 82 C60 81 67 76 72 67" fill="none" stroke="currentColor" stroke-width="1.6"/>
   </g>
 
   <g id="tulipMini">
@@ -515,17 +517,17 @@
     <use href="#tulipStroke" transform="translate(-20,-5) scale(0.65)" style="color:var(--soft-white)"/>
   </g>
 
-  <!-- sello de cera: tulipán simplificado -->
+  <!-- sello de cera: silueta de tulipán de tres pétalos, legible a tamaño pequeño -->
   <g id="tulipStamp">
-    <path d="M20 0 C13 0 9 8 9 14 C9 20 14 25 20 28 C26 25 31 20 31 14 C31 8 27 0 20 0Z" fill="none" stroke="#eef3f6" stroke-width="2.2"/>
-    <path d="M20 28 L20 52" fill="none" stroke="#eef3f6" stroke-width="2.2"/>
-    <path d="M20 40 C13 40 8 36 5 30" fill="none" stroke="#eef3f6" stroke-width="1.8"/>
-    <path d="M20 45 C27 45 32 40 35 34" fill="none" stroke="#eef3f6" stroke-width="1.8"/>
+    <path d="M50 26 Q40 42 50 60 Q60 42 50 26 Z" fill="currentColor"/>
+    <path d="M50 60 Q28 56 25 36 Q42 39 50 60 Z" fill="currentColor"/>
+    <path d="M50 60 Q72 56 75 36 Q58 39 50 60 Z" fill="currentColor"/>
+    <path d="M50 60 L50 80" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
   </g>
 
-  <!-- línea decorativa con tulipán central (dividers) -->
+  <!-- línea decorativa con tulipán central (dividers) — silueta sólida, legible en miniatura -->
   <g id="tulipLine" viewBox="0 0 24 24">
-    <use href="#tulipStroke" transform="translate(-38,-10) scale(0.24)"/>
+    <use href="#tulipStamp" transform="translate(-38,-31) scale(0.3)" style="color:currentColor"/>
   </g>
 
   <!-- corazón lineal para dividers -->
