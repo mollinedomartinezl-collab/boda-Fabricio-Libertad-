@@ -25,7 +25,7 @@ const CONFIG = {
   diaDestacado: 28,
   ciudad: "Cochabamba, Bolivia",
 
-  // música (coloca tu archivo en assets/audio/cancion-boda.mp3)
+  // música (coloca tu archivo en la MISMA carpeta que index.html, con este nombre exacto)
   cancionTitulo: "[ Canción_Boda.mp3 ]",
   cancionArtista: "[EDITAR — Título / Artista]",
 
@@ -71,9 +71,9 @@ const CONFIG = {
   rsvpDeadline: "[EDITAR]",
   rsvpLink: "", // pega aquí el enlace de Google Forms / WhatsApp / formulario propio
 
-  // fotos (rutas relativas dentro de /assets/images/)
-  fotoPrincipal: "assets/images/foto-principal.jpg",
-  fotoSecundaria: "assets/images/foto-2.jpg",
+  // fotos (colócalas en la MISMA carpeta que index.html, con estos nombres exactos)
+  fotoPrincipal: "foto-principal.jpg",
+  fotoSecundaria: "foto-2.jpg",
 };
 
 /* ================================================================
@@ -296,7 +296,7 @@ function initMusicPlayer(){
       audio.play().then(() => {
         setPlayingUI(true);
       }).catch(() => {
-        alert('Agrega el archivo de audio en assets/audio/cancion-boda.mp3 para reproducir la canción.');
+        alert('Agrega el archivo de audio "cancion-boda.mp3" en la misma carpeta que index.html para reproducir la canción.');
       });
     } else {
       audio.pause();
