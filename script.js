@@ -459,6 +459,53 @@ function initGiftsModal(){
 }
 
 /* ================================================================
+   CAPA AMBIENTAL — tulipanes cayendo lentamente (marca de agua)
+   ================================================================ */
+function initFallingPetals(){
+  const layer = document.getElementById('petalsLayer');
+  if (!layer) return;
+
+  const petalShapes = [
+    // pétalo suelto simple
+    `<svg viewBox="0 0 40 60"><path d="M20 4 C10 14 6 26 6 34 C6 44 12 52 20 58 C28 52 34 44 34 34 C34 26 30 14 20 4Z" fill="currentColor"/></svg>`,
+    // hoja alargada
+    `<svg viewBox="0 0 40 60"><path d="M20 2 C32 16 34 34 20 58 C6 34 8 16 20 2Z" fill="currentColor"/></svg>`,
+  ];
+  const colors = ['var(--dusty-blue)', 'var(--powder-blue)', 'var(--sage)', 'var(--coastal-sand)'];
+  const total = window.innerWidth < 700 ? 9 : 14;
+
+  for (let i = 0; i < total; i++){
+    const outer = document.createElement('div');
+    outer.className = 'petal';
+    const size = 14 + Math.random() * 16; // 14–30px
+    const left = Math.random() * 100; // vw
+    const duration = 22 + Math.random() * 18; // 22–40s
+    const delay = -(Math.random() * duration); // desincroniza
+    const swayDuration = 3 + Math.random() * 3;
+    const opacity = 0.12 + Math.random() * 0.16;
+
+    outer.style.left = `${left}vw`;
+    outer.style.width = `${size}px`;
+    outer.style.height = `${size * 1.5}px`;
+    outer.style.opacity = opacity.toFixed(2);
+    outer.style.animationDuration = `${duration}s`;
+    outer.style.animationDelay = `${delay}s`;
+
+    const inner = document.createElement('div');
+    inner.className = 'petal__inner';
+    inner.style.color = colors[Math.floor(Math.random() * colors.length)];
+    inner.style.width = '100%';
+    inner.style.height = '100%';
+    inner.style.animationDuration = `${swayDuration}s`;
+    inner.style.animationDelay = `${delay}s`;
+    inner.innerHTML = petalShapes[Math.floor(Math.random() * petalShapes.length)];
+
+    outer.appendChild(inner);
+    layer.appendChild(outer);
+  }
+}
+
+/* ================================================================
    INICIALIZACIÓN GENERAL
    ================================================================ */
 document.addEventListener('DOMContentLoaded', () => {
@@ -469,4 +516,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initCalendar();
   initCountdown();
   initGiftsModal();
+  initFallingPetals();
 });
