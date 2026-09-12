@@ -18,6 +18,10 @@
 <!-- TEXTURA DE FONDO GLOBAL -->
 <!-- ============================================================ -->
 <div class="paper-texture" aria-hidden="true"></div>
+<div class="paper-grain" aria-hidden="true"></div>
+
+<!-- capa ambiental: tulipanes cayendo lentamente, tipo marca de agua -->
+<div class="petals-layer" id="petalsLayer" aria-hidden="true"></div>
 
 <!-- ============================================================ -->
 <!-- BOTÓN FLOTANTE DE MÚSICA (aparece tras abrir el sobre) -->
@@ -115,8 +119,6 @@
       <div class="photo-frame__inner">
         <span class="photo-frame__label">[ Foto principal ]</span>
       </div>
-      <svg class="photo-frame__corner photo-frame__corner--1" viewBox="0 0 30 30"><use href="#cornerFlourish"/></svg>
-      <svg class="photo-frame__corner photo-frame__corner--2" viewBox="0 0 30 30"><use href="#cornerFlourish"/></svg>
     </div>
 
     <div class="divider reveal-on-scroll"><span></span><svg viewBox="0 0 24 24" class="divider__icon"><use href="#tulipLine"/></svg><span></span></div>
@@ -168,7 +170,7 @@
   <!-- SECCIÓN 4 — NUESTRA HISTORIA -->
   <section class="section story-section" id="historia">
     <svg class="tulip-divider" viewBox="0 0 200 40" aria-hidden="true"><use href="#tulipLine"/></svg>
-    <p class="eyebrow reveal-on-scroll">Nuestra historia</p>
+    <h2 class="section-title script reveal-on-scroll">Nuestra historia</h2>
     <blockquote class="story-text reveal-on-scroll" data-config="story-text">
       Entre millones de caminos, nuestros corazones se encontraron.
       <br><br>
@@ -495,14 +497,38 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <defs>
 
-  <!-- tulipán individual, trazo fino, silueta de tres pétalos -->
+  <!-- filtro de grano de papel: textura tipo cartulina -->
+  <filter id="paperGrain" x="0%" y="0%" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.9" numOctaves="3" seed="7" stitchTiles="stitch" result="noise"/>
+    <feColorMatrix in="noise" type="matrix"
+      values="0 0 0 0 0.30
+              0 0 0 0 0.26
+              0 0 0 0 0.20
+              0 0 0 0.5 0"/>
+  </filter>
+
+  <!-- gradiente floral compartido -->
+  <linearGradient id="tulipGradient" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" style="stop-color:var(--powder-blue)"/>
+    <stop offset="100%" style="stop-color:var(--dusty-blue)"/>
+  </linearGradient>
+
+  <!-- tulipán botánico realista: tres pétalos curvos + tallo + hojas -->
   <g id="tulipStroke">
-    <path d="M50 18 Q41 33 50 50 Q59 33 50 18 Z" fill="none" stroke="currentColor" stroke-width="2"/>
-    <path d="M50 50 Q31 46 29 28 Q45 31 50 50 Z" fill="none" stroke="currentColor" stroke-width="2"/>
-    <path d="M50 50 Q69 46 71 28 Q55 31 50 50 Z" fill="none" stroke="currentColor" stroke-width="2"/>
-    <path d="M50 50 L50 95" fill="none" stroke="currentColor" stroke-width="2"/>
-    <path d="M50 74 C40 73 33 68 28 59" fill="none" stroke="currentColor" stroke-width="1.6"/>
-    <path d="M50 82 C60 81 67 76 72 67" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <!-- pétalo central -->
+    <path d="M50 16 C41 24 38 34 38 42 C38 49 43 55 50 60 C57 55 62 49 62 42 C62 34 59 24 50 16Z"
+          fill="url(#tulipGradient)" stroke="var(--ocean-blue)" stroke-width="1.3"/>
+    <!-- pétalo izquierdo -->
+    <path d="M50 60 C38 58 27 51 21 37 C31 37 41 42 48 54 C49 56 49.5 58 50 60Z"
+          fill="url(#tulipGradient)" stroke="var(--ocean-blue)" stroke-width="1.1" opacity="0.92"/>
+    <!-- pétalo derecho -->
+    <path d="M50 60 C62 58 73 51 79 37 C69 37 59 42 52 54 C51 56 50.5 58 50 60Z"
+          fill="url(#tulipGradient)" stroke="var(--ocean-blue)" stroke-width="1.1" opacity="0.92"/>
+    <!-- tallo -->
+    <path d="M50 60 C49 70 51 82 47 96" fill="none" stroke="var(--sage)" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- hojas -->
+    <path d="M48 76 C38 75 30 70 25 61" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M48 86 C58 85 66 79 71 70" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round"/>
   </g>
 
   <g id="tulipMini">
@@ -517,12 +543,12 @@
     <use href="#tulipStroke" transform="translate(-20,-5) scale(0.65)" style="color:var(--soft-white)"/>
   </g>
 
-  <!-- sello de cera: silueta de tulipán de tres pétalos, legible a tamaño pequeño -->
+  <!-- sello de cera y usos diminutos: silueta sólida del mismo tulipán, un solo tono -->
   <g id="tulipStamp">
-    <path d="M50 26 Q40 42 50 60 Q60 42 50 26 Z" fill="currentColor"/>
-    <path d="M50 60 Q28 56 25 36 Q42 39 50 60 Z" fill="currentColor"/>
-    <path d="M50 60 Q72 56 75 36 Q58 39 50 60 Z" fill="currentColor"/>
-    <path d="M50 60 L50 80" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+    <path d="M50 20 C42 27 39 36 39 43 C39 49 43 54 50 58 C57 54 61 49 61 43 C61 36 58 27 50 20Z" fill="currentColor"/>
+    <path d="M50 58 C40 56 31 50 26 39 C35 39 44 43 49 53Z" fill="currentColor" opacity="0.9"/>
+    <path d="M50 58 C60 56 69 50 74 39 C65 39 56 43 51 53Z" fill="currentColor" opacity="0.9"/>
+    <path d="M50 58 L50 80" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
   </g>
 
   <!-- línea decorativa con tulipán central (dividers) — silueta sólida, legible en miniatura -->
