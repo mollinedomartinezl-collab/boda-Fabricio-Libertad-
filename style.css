@@ -23,7 +23,7 @@
   --font-caps: 'Cinzel', 'Cormorant Garamond', serif;
 
   /* espaciado */
-  --section-pad-y: clamp(4.5rem, 10vw, 7rem);
+  --section-pad-y: clamp(3rem, 6vw, 4.5rem);
   --section-pad-x: clamp(1.5rem, 6vw, 3rem);
   --max-w: 640px;
 
@@ -56,7 +56,7 @@ body{
   -webkit-font-smoothing: antialiased;
 }
 
-/* textura de papel sutil, global, muy discreta */
+/* textura de papel sutil, global */
 .paper-texture{
   position: fixed;
   inset: 0;
@@ -69,6 +69,52 @@ body{
     radial-gradient(rgba(120,110,90,0.025) 1px, transparent 1px);
   background-size: 3px 3px, 7px 7px;
   background-position: 0 0, 2px 3px;
+}
+
+/* grano de papel más marcado, tipo cartulina/carta, vía filtro SVG */
+.paper-grain{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  filter: url(#paperGrain);
+}
+
+/* capa ambiental de tulipanes cayendo, muy sutil, tipo marca de agua */
+.petals-layer{
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.petal{
+  position: absolute;
+  top: -8%;
+  animation-name: petal-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+.petal__inner{
+  animation-name: petal-sway;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+.petal svg{ display: block; width: 100%; height: 100%; }
+@keyframes petal-fall{
+  from{ transform: translateY(-10vh) rotate(0deg); }
+  to{ transform: translateY(112vh) rotate(210deg); }
+}
+@keyframes petal-sway{
+  from{ transform: translateX(-16px) rotate(-8deg); }
+  to{ transform: translateX(16px) rotate(8deg); }
+}
+@media (prefers-reduced-motion: reduce){
+  .petals-layer{ display: none; }
 }
 
 .script{ font-family: var(--font-script); font-weight: 400; }
@@ -93,11 +139,12 @@ svg{ overflow: visible; }
 .eyebrow--light{ color: var(--powder-blue); }
 
 .section-title{
-  font-size: clamp(2.2rem, 7vw, 3rem);
+  font-size: clamp(2.6rem, 9vw, 3.6rem);
   text-align: center;
   color: var(--deep-navy);
   margin: 0 0 0.6rem;
   font-weight: 400;
+  line-height: 1.05;
 }
 .section-title--light{ color: var(--soft-white); }
 
@@ -227,7 +274,7 @@ a:hover .arrow, button:hover .arrow{ transform: translateX(4px); }
     radial-gradient(ellipse at 50% 0%, rgba(187,208,221,0.35), transparent 60%),
     var(--ivory);
   overflow: hidden;
-  z-index: 1;
+  z-index: 2;
 }
 .envelope-gate__eyebrow{
   font-family: var(--font-caps);
@@ -383,7 +430,7 @@ a:hover .arrow, button:hover .arrow{ transform: translateX(4px); }
 /* ================================================================
    CONTENIDO PRINCIPAL / SECCIONES GENERALES
    ================================================================ */
-.main-content{ position: relative; z-index: 1; }
+.main-content{ position: relative; z-index: 2; }
 
 .section{
   position: relative;
@@ -409,13 +456,13 @@ a:hover .arrow, button:hover .arrow{ transform: translateX(4px); }
 /* decoración de tulipanes en esquinas de sección */
 .corner-floral{
   position: absolute;
-  width: 90px;
+  width: 68px;
   color: var(--dusty-blue);
   opacity: 0.55;
   pointer-events: none;
 }
-.corner-floral--tl{ top: 0.5rem; left: 0.2rem; }
-.corner-floral--br{ bottom: 0.5rem; right: 0.2rem; transform: rotate(180deg); }
+.corner-floral--tl{ top: -0.3rem; left: -0.8rem; }
+.corner-floral--br{ bottom: -0.3rem; right: -0.8rem; transform: rotate(180deg); }
 .corner-floral svg{ width: 100%; height: auto; }
 
 .tulip-side{
@@ -452,10 +499,23 @@ a:hover .arrow, button:hover .arrow{ transform: translateX(4px); }
 .photo-frame{
   position: relative;
   margin: 0 auto 1.8rem;
-  border: 1px solid var(--dusty-blue);
-  padding: 10px;
+  padding: 14px;
   background: var(--soft-white);
-  box-shadow: 0 20px 40px -22px rgba(34,59,82,0.3);
+  box-shadow: 0 24px 48px -24px rgba(34,59,82,0.35);
+}
+.photo-frame::before{
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--dusty-blue);
+  pointer-events: none;
+}
+.photo-frame::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(76,117,146,0.25);
+  pointer-events: none;
 }
 .photo-frame--main{ width: min(78vw, 340px); }
 .photo-frame__inner{
@@ -474,13 +534,10 @@ a:hover .arrow, button:hover .arrow{ transform: translateX(4px); }
   text-align: center;
   padding: 0 1rem;
 }
-.photo-frame__corner{ position: absolute; width: 22px; height: 22px; }
-.photo-frame__corner--1{ top: -2px; left: -2px; }
-.photo-frame__corner--2{ bottom: -2px; right: -2px; transform: rotate(180deg); }
 
 .photo-frame--tall{ width: min(80vw, 320px); }
 .photo-frame--tall .photo-frame__inner{ aspect-ratio: 3/4.4; }
-.photo-frame__tulips{ position: absolute; top: 50%; width: 46px; transform: translateY(-50%); color: var(--dusty-blue); opacity: 0.55; }
+.photo-frame__tulips{ position: absolute; top: 50%; width: 46px; transform: translateY(-50%); opacity: 0.85; }
 .photo-frame__tulips--left{ left: -46px; }
 .photo-frame__tulips--right{ right: -46px; transform: translateY(-50%) scaleX(-1); }
 
