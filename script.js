@@ -206,6 +206,10 @@ function initEnvelope(){
     if (opened) return;
     opened = true;
 
+    // inicia la música en el MISMO clic (gesto del usuario) que abre
+    // el sobre, para que el navegador permita la reproducción automática
+    if (musicControls) musicControls.playMusic();
+
     gate.classList.add('is-opening');
 
     // secuencia: solapa se abre -> sello se anima -> tarjeta se desliza -> transición
@@ -264,6 +268,8 @@ function revealVisibleSections(){
 /* ================================================================
    REPRODUCTOR DE MÚSICA
    ================================================================ */
+let musicControls = null;
+
 function initMusicPlayer(){
   const audio = document.getElementById('audioEl');
   const playBtn = document.getElementById('playBtn');
@@ -291,13 +297,25 @@ function initMusicPlayer(){
     floatingBtn.classList.toggle('is-playing', isPlaying);
   }
 
+  // intenta reproducir; se expone globalmente para poder llamarla
+  // en el MISMO clic con el que se abre el sobre (necesario para que
+  // los navegadores —sobre todo iPhone/Safari— permitan el autoplay)
+  function playMusic(){
+    const p = audio.play();
+    if (p && p.catch){
+      p.then(() => setPlayingUI(true)).catch(() => {
+        // el navegador bloqueó el autoplay: se queda listo para
+        // que la persona presione play manualmente, sin mensajes molestos
+        setPlayingUI(false);
+      });
+    } else {
+      setPlayingUI(true);
+    }
+  }
+
   function togglePlay(){
     if (audio.paused){
-      audio.play().then(() => {
-        setPlayingUI(true);
-      }).catch(() => {
-        alert('Agrega el archivo de audio "cancion-boda.mp3" en la misma carpeta que index.html para reproducir la canción.');
-      });
+      playMusic();
     } else {
       audio.pause();
       setPlayingUI(false);
@@ -329,6 +347,17 @@ function initMusicPlayer(){
 
   audio.addEventListener('ended', () => setPlayingUI(false));
 
+  // ajusta el mensaje de ayuda según si el archivo de audio existe o no
+  const hintEl = document.getElementById('musicHint');
+  if (hintEl){
+    audio.addEventListener('error', () => {
+      hintEl.innerHTML = 'Agrega tu archivo <code>cancion-boda.mp3</code> en esta misma carpeta para que suene';
+    });
+    audio.addEventListener('loadedmetadata', () => {
+      hintEl.textContent = 'La canción se reproduce sola al abrir el sobre — aquí puedes pausarla';
+    });
+  }
+
   function seek(clientX){
     const rect = progressBar.getBoundingClientRect();
     const pct = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
@@ -338,6 +367,10 @@ function initMusicPlayer(){
   }
   progressBar.addEventListener('click', (e) => seek(e.clientX));
   progressBar.addEventListener('touchstart', (e) => seek(e.touches[0].clientX), { passive: true });
+
+  // se expone para que initEnvelope pueda iniciar la música
+  // en el mismo clic con el que se abre el sobre
+  musicControls = { playMusic };
 }
 
 /* ================================================================
