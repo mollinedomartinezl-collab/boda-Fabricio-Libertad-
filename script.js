@@ -19,15 +19,15 @@ const CONFIG = {
   apellidosNovia: "EDITAR",
 
   // fecha y lugar
-  fechaBoda: "2026-11-28T16:00:00", // usada por la cuenta regresiva (fecha/hora de la ceremonia)
+  fechaBoda: "2026-11-28T10:30:00", // usada por la cuenta regresiva (hora de inicio: recepción de invitados)
   fechaLarga: "28 de Noviembre de 2026",
   mesAnio: "Noviembre 2026",
   diaDestacado: 28,
-  ciudad: "Cochabamba, Bolivia",
+  ciudad: "La Paz · Achocalla, Bolivia",
 
   // música (coloca tu archivo en la MISMA carpeta que index.html, con este nombre exacto)
-  cancionTitulo: "[ Canción_Boda.mp3 ]",
-  cancionArtista: "[EDITAR — Título / Artista]",
+  cancionTitulo: "Ella es mi fiesta",
+  cancionArtista: "Carlos Vives",
 
   // historia (texto editable)
   historia: `Entre millones de caminos, nuestros corazones se encontraron.
@@ -37,32 +37,27 @@ const CONFIG = {
     de nuestras vidas.`,
 
   // padrinos y padres
-  padrino: "[EDITAR]",
-  madrina: "[EDITAR]",
+  padrino: "Jesús Cangre",
+  madrina: "Nilda Alanoca",
   padresFabricio: "[EDITAR]",
   padresLibertad: "[EDITAR]",
 
-  // itinerario (formato libre, ej. "16:00 HRS")
-  horaCeremonia: "[HORA]",
-  horaRecepcion: "[HORA]",
-  horaCoctel: "[HORA]",
-  horaEntrada: "[HORA]",
-  horaCena: "[HORA]",
-  horaBrindis: "[HORA]",
-  horaBaile: "[HORA]",
-  horaExtra: "[HORA]",
-  eventoExtra: "[EDITAR]",
+  // itinerario — 28 de noviembre de 2026, La Paz · Achocalla
+  horaRecepcion: "10:30 HRS",
+  horaCeremonia: "11:00 HRS",
+  horaCoctel: "12:00 HRS",
+  horaBrindis: "12:30 HRS",
+  horaAlmuerzo: "13:00 HRS",
+  horaPalabras: "13:30 HRS",
+  horaBaileNovios: "14:00 HRS",
+  horaPista: "14:30 HRS",
+  horaTorta: "15:15 HRS",
+  horaFiesta: "16:00 HRS",
 
-  // ubicaciones
-  iglesiaNombre: "[ Nombre del lugar ]",
-  iglesiaDireccion: "[ Dirección ]",
-  iglesiaMapsUrl: "", // pega aquí el enlace de Google Maps cuando se confirme
-  lugarCeremoniaCorto: "[EDITAR]",
-
+  // ubicación (ceremonia y recepción en el mismo lugar)
   recepcionNombre: "[ Nombre del lugar ]",
-  recepcionDireccion: "[ Dirección ]",
-  recepcionMapsUrl: "", // pega aquí el enlace de Google Maps cuando se confirme
-  lugarRecepcionCorto: "[EDITAR]",
+  recepcionDireccion: "La Paz · Achocalla, Bolivia",
+  recepcionMapsUrl: "", // pega aquí el enlace de Google Maps cuando se confirme el salón exacto
 
   // regalos
   datosRegalo: "[ Datos de regalo — EDITAR ]",
@@ -96,20 +91,17 @@ function aplicarConfig(){
   setText('[data-config="padres-fabricio"]', CONFIG.padresFabricio);
   setText('[data-config="padres-libertad"]', CONFIG.padresLibertad);
 
-  setText('[data-config="hora-ceremonia"]', CONFIG.horaCeremonia);
   setText('[data-config="hora-recepcion"]', CONFIG.horaRecepcion);
+  setText('[data-config="hora-ceremonia"]', CONFIG.horaCeremonia);
   setText('[data-config="hora-coctel"]', CONFIG.horaCoctel);
-  setText('[data-config="hora-entrada"]', CONFIG.horaEntrada);
-  setText('[data-config="hora-cena"]', CONFIG.horaCena);
   setText('[data-config="hora-brindis"]', CONFIG.horaBrindis);
-  setText('[data-config="hora-baile"]', CONFIG.horaBaile);
-  setText('[data-config="hora-extra"]', CONFIG.horaExtra);
-  setText('[data-config="evento-extra"]', CONFIG.eventoExtra);
-  setText('[data-config="lugar-ceremonia-corto"]', CONFIG.lugarCeremoniaCorto);
-  setText('[data-config="lugar-recepcion-corto"]', CONFIG.lugarRecepcionCorto);
+  setText('[data-config="hora-almuerzo"]', CONFIG.horaAlmuerzo);
+  setText('[data-config="hora-palabras"]', CONFIG.horaPalabras);
+  setText('[data-config="hora-baile-novios"]', CONFIG.horaBaileNovios);
+  setText('[data-config="hora-pista"]', CONFIG.horaPista);
+  setText('[data-config="hora-torta"]', CONFIG.horaTorta);
+  setText('[data-config="hora-fiesta"]', CONFIG.horaFiesta);
 
-  setText('[data-config="iglesia-nombre"]', CONFIG.iglesiaNombre);
-  setText('[data-config="iglesia-direccion"]', CONFIG.iglesiaDireccion);
   setText('[data-config="recepcion-nombre"]', CONFIG.recepcionNombre);
   setText('[data-config="recepcion-direccion"]', CONFIG.recepcionDireccion);
 
@@ -125,21 +117,8 @@ function aplicarConfig(){
     el.textContent = `[${CONFIG.apellidosNovio}] & [${CONFIG.apellidosNovia}]`;
   });
 
-  // enlaces de mapas
-  const mapCeremonia = document.getElementById('mapCeremonia');
+  // enlace de mapa (un solo lugar para ceremonia y recepción)
   const mapRecepcion = document.getElementById('mapRecepcion');
-  if (mapCeremonia){
-    if (CONFIG.iglesiaMapsUrl){
-      mapCeremonia.href = CONFIG.iglesiaMapsUrl;
-    } else {
-      mapCeremonia.href = '#';
-      mapCeremonia.setAttribute('aria-disabled', 'true');
-      mapCeremonia.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert('La ubicación de la ceremonia aún no ha sido confirmada.');
-      });
-    }
-  }
   if (mapRecepcion){
     if (CONFIG.recepcionMapsUrl){
       mapRecepcion.href = CONFIG.recepcionMapsUrl;
@@ -148,7 +127,7 @@ function aplicarConfig(){
       mapRecepcion.setAttribute('aria-disabled', 'true');
       mapRecepcion.addEventListener('click', (e) => {
         e.preventDefault();
-        alert('La ubicación de la recepción aún no ha sido confirmada.');
+        alert('El nombre exacto del salón aún no ha sido confirmado.');
       });
     }
   }
