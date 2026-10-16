@@ -112,9 +112,6 @@
       <span class="amp">&amp;</span>
       <span class="script">Libertad</span>
     </h1>
-
-    <p class="surnames reveal-on-scroll">[Apellidos de Fabricio] &amp; [Apellidos de Libertad]</p>
-
     <div class="photo-frame photo-frame--main reveal-on-scroll" data-config-photo="main">
       <div class="photo-frame__inner">
         <span class="photo-frame__label">[ Foto principal ]</span>
@@ -266,6 +263,7 @@
     <div class="timeline" id="timeline">
       <!-- cada item alterna lado izquierdo/derecho -->
       <div class="timeline__line" aria-hidden="true"></div>
+      <span class="timeline__tip" aria-hidden="true"><svg viewBox="0 0 40 20"><use href="#leafBranch"/></svg></span>
 
       <div class="timeline__item timeline__item--left reveal-on-scroll">
         <div class="timeline__icon"><svg viewBox="0 0 48 48"><use href="#iconArch"/></svg></div>
@@ -273,7 +271,7 @@
           <p class="timeline__time" data-config="hora-recepcion">10:30 HRS</p>
           <p class="timeline__label">Recepción de invitados</p>
         </div>
-        <span class="timeline__dot"></span>
+        <span class="timeline__leaf" aria-hidden="true"><svg viewBox="0 0 40 20"><use href="#leafBranch"/></svg></span>
       </div>
 
       <div class="timeline__item timeline__item--right reveal-on-scroll">
@@ -282,7 +280,7 @@
           <p class="timeline__time" data-config="hora-ceremonia">11:00 HRS</p>
           <p class="timeline__label">Ceremonia civil</p>
         </div>
-        <span class="timeline__dot"></span>
+        <span class="timeline__leaf" aria-hidden="true"><svg viewBox="0 0 40 20"><use href="#leafBranch"/></svg></span>
       </div>
 
       <div class="timeline__item timeline__item--left reveal-on-scroll">
@@ -291,7 +289,7 @@
           <p class="timeline__time" data-config="hora-coctel">12:00 HRS</p>
           <p class="timeline__label">Sesión de fotografías</p>
         </div>
-        <span class="timeline__dot"></span>
+        <span class="timeline__leaf" aria-hidden="true"><svg viewBox="0 0 40 20"><use href="#leafBranch"/></svg></span>
       </div>
 
       <div class="timeline__item timeline__item--right reveal-on-scroll">
@@ -300,7 +298,7 @@
           <p class="timeline__time" data-config="hora-brindis">12:30 HRS</p>
           <p class="timeline__label">Brindis</p>
         </div>
-        <span class="timeline__dot"></span>
+        <span class="timeline__leaf" aria-hidden="true"><svg viewBox="0 0 40 20"><use href="#leafBranch"/></svg></span>
       </div>
 
       <div class="timeline__item timeline__item--left reveal-on-scroll">
@@ -309,7 +307,7 @@
           <p class="timeline__time" data-config="hora-almuerzo">13:00 HRS</p>
           <p class="timeline__label">Almuerzo</p>
         </div>
-        <span class="timeline__dot"></span>
+        <span class="timeline__leaf" aria-hidden="true"><svg viewBox="0 0 40 20"><use href="#leafBranch"/></svg></span>
       </div>
 
       <div class="timeline__item timeline__item--right reveal-on-scroll">
@@ -318,7 +316,7 @@
           <p class="timeline__time" data-config="hora-palabras">13:30 HRS</p>
           <p class="timeline__label">Palabras y felicitaciones</p>
         </div>
-        <span class="timeline__dot"></span>
+        <span class="timeline__leaf" aria-hidden="true"><svg viewBox="0 0 40 20"><use href="#leafBranch"/></svg></span>
       </div>
 
       <div class="timeline__item timeline__item--left reveal-on-scroll">
@@ -327,7 +325,7 @@
           <p class="timeline__time" data-config="hora-baile-novios">14:00 HRS</p>
           <p class="timeline__label">Baile de los novios</p>
         </div>
-        <span class="timeline__dot"></span>
+        <span class="timeline__leaf" aria-hidden="true"><svg viewBox="0 0 40 20"><use href="#leafBranch"/></svg></span>
       </div>
 
       <div class="timeline__item timeline__item--right reveal-on-scroll">
@@ -336,7 +334,7 @@
           <p class="timeline__time" data-config="hora-pista">14:30 HRS</p>
           <p class="timeline__label">Apertura de la pista de baile</p>
         </div>
-        <span class="timeline__dot"></span>
+        <span class="timeline__leaf" aria-hidden="true"><svg viewBox="0 0 40 20"><use href="#leafBranch"/></svg></span>
       </div>
 
       <div class="timeline__item timeline__item--left reveal-on-scroll">
@@ -345,7 +343,7 @@
           <p class="timeline__time" data-config="hora-torta">15:15 HRS</p>
           <p class="timeline__label">Torta y bocaditos</p>
         </div>
-        <span class="timeline__dot"></span>
+        <span class="timeline__leaf" aria-hidden="true"><svg viewBox="0 0 40 20"><use href="#leafBranch"/></svg></span>
       </div>
 
       <div class="timeline__item timeline__item--right reveal-on-scroll">
@@ -354,7 +352,7 @@
           <p class="timeline__time" data-config="hora-fiesta">16:00 HRS</p>
           <p class="timeline__label">Fiesta</p>
         </div>
-        <span class="timeline__dot"></span>
+        <span class="timeline__leaf" aria-hidden="true"><svg viewBox="0 0 40 20"><use href="#leafBranch"/></svg></span>
       </div>
     </div>
 
@@ -422,29 +420,6 @@
 
     <p class="thanks-line reveal-on-scroll">Tu presencia hará aún más especial este día</p>
   </section>
-
-  <!-- SECCIÓN 13 — REGALOS -->
-  <section class="section gifts-section" id="regalos">
-    <h2 class="script section-title reveal-on-scroll">Sugerencia de regalos</h2>
-    <p class="gifts-text reveal-on-scroll">
-      Tu presencia es el regalo más importante para nosotros.
-      Sin embargo, si deseas acompañarnos con un detalle,
-      a continuación encontrarás nuestra información.
-    </p>
-    <button class="btn-solid reveal-on-scroll" id="openGiftsModal">Ver datos</button>
-  </section>
-
-  <!-- MODAL DE REGALOS -->
-  <div class="modal" id="giftsModal" hidden>
-    <div class="modal__backdrop" data-close-modal></div>
-    <div class="modal__card">
-      <button class="modal__close" data-close-modal aria-label="Cerrar">&times;</button>
-      <svg class="modal__tulip" viewBox="0 0 60 90" aria-hidden="true"><use href="#tulipSolo"/></svg>
-      <h3 class="script">Datos de regalo</h3>
-      <p class="modal__body" data-config="gift-info">[ Datos de regalo — EDITAR ]</p>
-    </div>
-  </div>
-
   <!-- SECCIÓN 14 — CONFIRMACIÓN -->
   <section class="section rsvp-section" id="confirmacion">
     <div class="tulip-corner-rsvp tulip-corner-rsvp--tl" aria-hidden="true"><svg viewBox="0 0 100 140"><use href="#tulipCorner"/></svg></div>
@@ -596,6 +571,12 @@
     <path d="M2 28 C2 14 14 2 28 2" fill="none" stroke="var(--ocean-blue)" stroke-width="1.4"/>
   </g>
 
+  <!-- hoja de rama (itinerario): base en el tallo (x=0), punta hacia afuera -->
+  <g id="leafBranch" viewBox="0 0 40 20">
+    <path d="M0 10 C8 0 28 0 40 10 C28 20 8 20 0 10Z" style="fill:var(--sage);stroke:#7f9a86;stroke-width:0.8"/>
+    <path d="M1 10 L36 10" style="fill:none;stroke:#6f8b78;stroke-width:0.9;stroke-linecap:round"/>
+  </g>
+
   <!-- íconos de línea para itinerario -->
   <g id="iconChurch" viewBox="0 0 48 48">
     <path d="M24 6v6M20 12h8M24 12v6M14 42V22l10-8 10 8v20H14Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
@@ -611,4 +592,64 @@
     <path d="M17 14l2.5-4h9l2.5 4" fill="none" stroke="currentColor" stroke-width="1.6"/>
   </g>
   <g id="iconRings" viewBox="0 0 48 48">
-    <circle cx="18" cy="28" r="9" fill="none"
+    <circle cx="18" cy="28" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <circle cx="30" cy="28" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </g>
+  <g id="iconTable" viewBox="0 0 48 48">
+    <ellipse cx="24" cy="16" rx="14" ry="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M24 20v10M14 42l4-12M34 42l-4-12" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </g>
+  <g id="iconToast" viewBox="0 0 48 48">
+    <path d="M16 8l6 6-12 12-6-6Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M32 8l-6 6 12 12 6-6Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M10 26l14 14M38 26L24 40" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </g>
+  <g id="iconCake" viewBox="0 0 48 48">
+    <path d="M8 42V26h32v16Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M8 34h32M14 26v-6h20v6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M20 14v-4M28 14v-4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </g>
+  <g id="iconStar" viewBox="0 0 48 48">
+    <path d="M24 6l5 13 14 1-11 9 4 14-12-8-12 8 4-14-11-9 14-1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+  </g>
+  <g id="iconPin" viewBox="0 0 24 24">
+    <path d="M12 22s7-7.4 7-13a7 7 0 1 0-14 0c0 5.6 7 13 7 13Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="12" cy="9" r="2.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  </g>
+  <g id="iconSuit" viewBox="0 0 60 60">
+    <path d="M20 12l10 6 10-6 8 6-4 6v28H16V24l-4-6Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M30 18v34" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  </g>
+  <g id="iconDress" viewBox="0 0 60 60">
+    <path d="M22 10h16l3 8-6 4 8 30H17l8-30-6-4Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+  </g>
+  <g id="iconChecklist" viewBox="0 0 48 48">
+    <rect x="10" y="8" width="24" height="32" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M15 18h14M15 24h14M15 30h9" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M32 30l4 4 8-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g id="iconCalendar" viewBox="0 0 48 48">
+    <rect x="8" y="10" width="32" height="28" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M8 18h32M16 6v8M32 6v8" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </g>
+  <g id="iconSpeech" viewBox="0 0 48 48">
+    <path d="M8 10h32v20H20l-8 7v-7H8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M15 17h18M15 23h12" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  </g>
+  <g id="iconDance" viewBox="0 0 48 48">
+    <circle cx="15" cy="10" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <circle cx="33" cy="10" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M15 14v10l-6 18M15 24l7 6-3 10M33 14v10l6 18M33 24l-7 6 3 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g id="iconMusic" viewBox="0 0 48 48">
+    <circle cx="14" cy="36" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <circle cx="34" cy="32" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M19 36V10l20-4v26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+  </g>
+
+</defs>
+</svg>
+
+<script src="script.js"></script>
+</body>
+</html>
