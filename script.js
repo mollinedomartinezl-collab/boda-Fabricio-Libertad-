@@ -39,8 +39,8 @@ const CONFIG = {
   // padrinos y padres
   padrino: "Jesús Cangre",
   madrina: "Nilda Alanoca",
-  padresFabricio: "[EDITAR]",
-  padresLibertad: "[EDITAR]",
+  padresFabricio: "Suleyca Gómez Castellón\nWalter Álvarez Vergara",
+  padresLibertad: "Marcelo Jesús Quiñones Vásquez\nVivían Aruquipa Alanoca",
 
   // itinerario — 28 de noviembre de 2026, La Paz · Achocalla
   horaRecepcion: "10:30 HRS",
@@ -57,13 +57,9 @@ const CONFIG = {
   // ubicación (ceremonia y recepción en el mismo lugar)
   recepcionNombre: "[ Nombre del lugar ]",
   recepcionDireccion: "La Paz · Achocalla, Bolivia",
-  recepcionMapsUrl: "", // pega aquí el enlace de Google Maps cuando se confirme el salón exacto
-
-  // regalos
-  datosRegalo: "[ Datos de regalo — EDITAR ]",
-
+  recepcionMapsUrl: "https://maps.app.goo.gl/sP7xxU5C3CBiF8Zm8?g_st=aw",
   // confirmación de asistencia
-  rsvpDeadline: "[EDITAR]",
+  rsvpDeadline: "1 de Noviembre de 2026",
   rsvpLink: "", // pega aquí el enlace de Google Forms / WhatsApp / formulario propio
 
   // fotos (colócalas en la MISMA carpeta que index.html, con estos nombres exactos)
@@ -104,19 +100,11 @@ function aplicarConfig(){
 
   setText('[data-config="recepcion-nombre"]', CONFIG.recepcionNombre);
   setText('[data-config="recepcion-direccion"]', CONFIG.recepcionDireccion);
-
-  setText('[data-config="gift-info"]', CONFIG.datosRegalo);
   setText('[data-config="rsvp-deadline"]', CONFIG.rsvpDeadline);
 
   // historia (permite HTML simple: <br>)
   const storyEl = document.querySelector('[data-config="story-text"]');
   if (storyEl) storyEl.innerHTML = CONFIG.historia;
-
-  // nombres/apellidos en la portada
-  document.querySelectorAll('.surnames').forEach(el => {
-    el.textContent = `[${CONFIG.apellidosNovio}] & [${CONFIG.apellidosNovia}]`;
-  });
-
   // enlace de mapa (un solo lugar para ceremonia y recepción)
   const mapRecepcion = document.getElementById('mapRecepcion');
   if (mapRecepcion){
@@ -387,3 +375,119 @@ function initCalendar(){
   }
 
   for (let d = 1; d <= ultimoDia; d++){
+    const dayEl = document.createElement('span');
+    dayEl.className = 'calendar__day';
+    if (d === CONFIG.diaDestacado){
+      dayEl.classList.add('calendar__day--highlight');
+      dayEl.innerHTML = `${d}`;
+      dayEl.setAttribute('aria-label', `${d} de ${CONFIG.mesAnio} — nuestra boda`);
+    } else {
+      dayEl.textContent = d;
+    }
+    calendarEl.appendChild(dayEl);
+  }
+}
+
+/* ================================================================
+   CUENTA REGRESIVA
+   ================================================================ */
+function initCountdown(){
+  const target = new Date(CONFIG.fechaBoda).getTime();
+  const elDays = document.getElementById('cdDays');
+  const elHours = document.getElementById('cdHours');
+  const elMinutes = document.getElementById('cdMinutes');
+  const elSeconds = document.getElementById('cdSeconds');
+  const title = document.getElementById('countdownTitle');
+  const countdownBox = document.getElementById('countdown');
+
+  if (!elDays) return;
+
+  function tick(){
+    const now = Date.now();
+    const diff = target - now;
+
+    if (diff <= 0){
+      elDays.textContent = '00';
+      elHours.textContent = '00';
+      elMinutes.textContent = '00';
+      elSeconds.textContent = '00';
+      title.textContent = 'Hoy comienza nuestro para siempre.';
+      countdownBox.style.opacity = '0.35';
+      clearInterval(intervalId);
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    elDays.textContent = String(days).padStart(2, '0');
+    elHours.textContent = String(hours).padStart(2, '0');
+    elMinutes.textContent = String(minutes).padStart(2, '0');
+    elSeconds.textContent = String(seconds).padStart(2, '0');
+  }
+
+  tick();
+  const intervalId = setInterval(tick, 1000);
+}
+
+/* ================================================================
+   CAPA AMBIENTAL — tulipanes cayendo lentamente (marca de agua)
+   ================================================================ */
+function initFallingPetals(){
+  const layer = document.getElementById('petalsLayer');
+  if (!layer) return;
+
+  const petalShapes = [
+    // pétalo suelto simple
+    `<svg viewBox="0 0 40 60"><path d="M20 4 C10 14 6 26 6 34 C6 44 12 52 20 58 C28 52 34 44 34 34 C34 26 30 14 20 4Z" fill="currentColor"/></svg>`,
+    // hoja alargada
+    `<svg viewBox="0 0 40 60"><path d="M20 2 C32 16 34 34 20 58 C6 34 8 16 20 2Z" fill="currentColor"/></svg>`,
+  ];
+  const colors = ['var(--dusty-blue)', 'var(--powder-blue)', 'var(--sage)', 'var(--coastal-sand)'];
+  const total = window.innerWidth < 700 ? 26 : 44;
+
+  for (let i = 0; i < total; i++){
+    const outer = document.createElement('div');
+    outer.className = 'petal';
+    const size = 14 + Math.random() * 16; // 14–30px
+    const left = Math.random() * 100; // vw
+    const duration = 22 + Math.random() * 18; // 22–40s
+    const delay = -(Math.random() * duration); // desincroniza
+    const swayDuration = 3 + Math.random() * 3;
+    const opacity = 0.14 + Math.random() * 0.18;
+
+    outer.style.left = `${left}vw`;
+    outer.style.width = `${size}px`;
+    outer.style.height = `${size * 1.5}px`;
+    outer.style.opacity = opacity.toFixed(2);
+    outer.style.animationDuration = `${duration}s`;
+    outer.style.animationDelay = `${delay}s`;
+
+    const inner = document.createElement('div');
+    inner.className = 'petal__inner';
+    inner.style.color = colors[Math.floor(Math.random() * colors.length)];
+    inner.style.width = '100%';
+    inner.style.height = '100%';
+    inner.style.animationDuration = `${swayDuration}s`;
+    inner.style.animationDelay = `${delay}s`;
+    inner.innerHTML = petalShapes[Math.floor(Math.random() * petalShapes.length)];
+
+    outer.appendChild(inner);
+    layer.appendChild(outer);
+  }
+}
+
+/* ================================================================
+   INICIALIZACIÓN GENERAL
+   ================================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  aplicarConfig();
+  initEnvelope();
+  initScrollReveal();
+  initMusicPlayer();
+  initCalendar();
+  initCountdown();
+  initFallingPetals();
+});
