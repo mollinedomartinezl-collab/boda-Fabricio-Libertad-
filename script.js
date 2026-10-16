@@ -63,8 +63,8 @@ const CONFIG = {
   rsvpLink: "", // pega aquí el enlace de Google Forms / WhatsApp / formulario propio
 
   // fotos (colócalas en la MISMA carpeta que index.html, con estos nombres exactos)
-  fotoPrincipal: "foto-principal.jpg",
-  fotoSecundaria: "foto-2.jpg",
+  fotoPrincipal: "foto-principal.JPG",
+  fotoSecundaria: "foto-2.JPG",
 };
 
 /* ================================================================
