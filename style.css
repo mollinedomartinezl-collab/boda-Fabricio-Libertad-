@@ -690,11 +690,23 @@ a:hover .arrow, button:hover .arrow{ transform: translateX(4px); }
   pointer-events: none;
 }
 .godparents-pair{
-  display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.2rem;
   margin: 0 0 1.6rem;
 }
-.godparents-pair__name{ font-family: var(--font-caps); font-size: 0.85rem; letter-spacing: 0.04em; color: var(--deep-navy); }
-.godparents-pair__amp{ color: var(--dusty-blue); font-style: italic; }
+.godparents-pair__name{
+  font-family: var(--font-caps);
+  font-size: clamp(1.45rem, 6.5vw, 2rem);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  color: var(--deep-navy);
+}
+.godparents-pair__amp{
+  font-family: var(--font-script);
+  font-size: clamp(1.8rem, 7vw, 2.4rem);
+  line-height: 1;
+  color: var(--dusty-blue);
+}
 
 .parents-grid{
   display: grid;
@@ -704,7 +716,7 @@ a:hover .arrow, button:hover .arrow{ transform: translateX(4px); }
   margin-top: 1.4rem;
 }
 .parents-grid__label{ font-family: var(--font-caps); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-blue); margin: 0 0 0.4rem; }
-.parents-grid__name{ font-size: 0.95rem; margin: 0; }
+.parents-grid__name{ font-size: 0.95rem; margin: 0; white-space: pre-line; }
 .parents-grid__divider{ width: 1px; height: 44px; background: var(--dusty-blue); opacity: 0.4; }
 
 /* ---------- SECCIÓN 7 — CALENDARIO ---------- */
@@ -777,20 +789,33 @@ a:hover .arrow, button:hover .arrow{ transform: translateX(4px); }
 }
 .countdown__colon{ font-size: 1.8rem; opacity: 0.4; align-self: flex-start; margin-top: 0.1rem; }
 
-/* ---------- SECCIÓN 9 — ITINERARIO ---------- */
+/* ---------- SECCIÓN 9 — ITINERARIO (rama con hojas) ---------- */
 .itinerary-section{ max-width: 720px; }
-.timeline{ position: relative; margin-top: 2.5rem; padding: 0 0.5rem; }
+.timeline{ position: relative; margin-top: 3.2rem; padding: 0 0.5rem; }
+
+/* tallo central */
 .timeline__line{
   position: absolute;
   left: 50%; top: 0; bottom: 0;
-  width: 2px;
-  background: linear-gradient(var(--dusty-blue), var(--ocean-blue));
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(var(--sage), #7f9a86 70%, var(--dusty-blue));
   transform: translateX(-50%);
-  opacity: 0.55;
+  opacity: 0.85;
 }
+/* hoja terminal en la punta del tallo */
+.timeline__tip{
+  position: absolute;
+  left: 50%; top: -30px;
+  width: 22px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.timeline__tip svg{ width: 100%; height: auto; display: block; transform: rotate(-90deg); }
+
 .timeline__item{
   position: relative;
-  width: 46%;
+  width: 44%;
   margin-bottom: 2.6rem;
   text-align: center;
 }
@@ -808,20 +833,38 @@ a:hover .arrow, button:hover .arrow{ transform: translateX(4px); }
 .timeline__time{ font-family: var(--font-caps); font-size: 0.95rem; letter-spacing: 0.06em; color: var(--deep-navy); margin: 0; }
 .timeline__label{ font-size: 1.05rem; margin: 0.15rem 0; }
 .timeline__place{ font-style: italic; font-size: 0.85rem; color: var(--ocean-blue); margin: 0; }
-.timeline__dot{
-  position: absolute; top: 4px;
-  width: 12px; height: 12px; border-radius: 50%;
-  background: var(--soft-white);
-  border: 2px solid var(--ocean-blue);
+
+/* hoja que sale del tallo hacia cada momento del itinerario */
+.timeline__leaf{
+  position: absolute;
+  top: 10px;
+  width: 13.64%;           /* = separación entre el item y el tallo */
+  min-width: 26px;
+  pointer-events: none;
 }
-.timeline__item--left .timeline__dot{ right: -8.5%; }
-.timeline__item--right .timeline__dot{ left: -8.5%; }
+.timeline__leaf svg{ width: 100%; height: auto; display: block; }
+.timeline__item--right .timeline__leaf{
+  left: -13.64%;
+  transform-origin: 0 50%;
+  transform: rotate(-14deg);
+}
+.timeline__item--left .timeline__leaf{
+  right: -13.64%;
+  transform-origin: 100% 50%;
+  transform: scaleX(-1) rotate(-14deg);
+}
 
 @media (max-width: 480px){
-  .timeline__item{ width: 100%; text-align: left !important; padding-left: 2.4rem; margin-right: 0 !important; margin-left: 0 !important; }
+  .timeline__item{ width: 100%; text-align: left !important; padding-left: 2.8rem; margin-right: 0 !important; margin-left: 0 !important; }
   .timeline__icon{ margin: 0 0 0.5rem 0 !important; }
   .timeline__line{ left: 12px; }
-  .timeline__item--left .timeline__dot, .timeline__item--right .timeline__dot{ left: 6px; right: auto; }
+  .timeline__tip{ left: 12px; }
+  .timeline__item .timeline__leaf{
+    left: 12px !important; right: auto !important;
+    width: 30px;
+    transform-origin: 0 50%;
+    transform: rotate(-14deg) !important;
+  }
 }
 
 /* ---------- SECCIÓN 10 — UBICACIONES ---------- */
